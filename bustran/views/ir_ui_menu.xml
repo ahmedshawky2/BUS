@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+
+
+   <record id="bus_orders_menu_parent" model="ir.ui.menu" >
+    <field name="action" eval="False"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Bus</field>
+    <field name="parent_id" eval="False"/>
+    <field name="sequence">9</field>
+    <field name="web_icon">fa fa-calendar,#FFAB4A,#838383</field>
+  </record>
+
+
+  <record id="bus_orders_menu" model="ir.ui.menu" >
+    <field name="action" ref="BUS_ACTION"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Bus</field>
+    <field name="parent_id" ref="bus_orders_menu_parent"/>
+    <field name="sequence">10</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+
+
+  <record id="busroutes_menu" model="ir.ui.menu" >
+    <field name="action" ref="BUSRoutes_ACTION"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Bus Routes</field>
+    <field name="parent_id" ref="bus_orders_menu_parent"/>
+    <field name="sequence">11</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+
+    <record id="routesusers_menu" model="ir.ui.menu" >
+    <field name="action" ref="Routesusers_ACTION"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Routes users</field>
+    <field name="parent_id" ref="bus_orders_menu_parent"/>
+    <field name="sequence">12</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+</odoo>
