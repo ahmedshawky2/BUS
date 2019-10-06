@@ -17,7 +17,7 @@ class routeusers(models.Model):
 
     parent_path = fields.Char(string="parent_path",  index=True)
 
-        parent_id = fields.Many2one('busroutes', 'Parent Route', ondelete='restrict')
+	parent_id = fields.Many2one('busroutes', 'Parent Route', ondelete='restrict')
 
     parent_left = fields.Integer('Parent Left', index=True)
     parent_right = fields.Integer('Parent Right', index=True)
