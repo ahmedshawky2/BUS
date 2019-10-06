@@ -18,7 +18,7 @@ class busroutes(models.Model):
   startdate = fields.Datetime(string="Start Date", required=False)
   parent_path = fields.Char(string="parent_path", index=True)
 
-  state = fields.Selection(string="Status", selection=[('New', 'New'), ('InProgress', 'InProgress'), ('End', 'End')],
+  state = fields.Selection(string="Status", selection=[('New', 'New'), ('InProgress', '-'), ('End', 'End')],
                            required=False)
   parent_id = fields.Many2one('bus', 'Parent Bus', ondelete='restrict')
   capacity = fields.Integer(string='Capacity', store=False, related='parent_id.capacity')

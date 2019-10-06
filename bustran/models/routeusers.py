@@ -18,21 +18,45 @@ class routeusers(models.Model):
 
   parent_path = fields.Char(string="parent_path", index=True)
 
-  parent_id = fields.Many2one('busroutes', 'Parent Route', ondelete='restrict')
+  parent_id = fields.Many2one('busroutes', 'Parent Route', ondelete='restrict',required=True)
 
   parent_left = fields.Integer('Parent Left', index=True)
   parent_right = fields.Integer('Parent Right', index=True)
 
   bus_state = fields.Selection(string='bus_state', store=False, related='parent_id.state')
 
+  @api.model
+  def create(self,values):
+    pid= values['parent_id']
+    n =  values['name']
+    #raise ValidationError(str(n))
+    ishaveanotherres = self.env['routeusers'].search_count([('name', '=', n),("bus_state","=","InProgress")])
 
-@api.multi
-def write(self, values):
-  self.ensure_one()
-  x = self.env['routeusers'].search_count([('parent_id.id', '=', self.parent_id.id)])
-  raise ValidationError(x)
-  # Add code here
-  return super(busroutes, self).write(values)
+    if ishaveanotherres >0:
+      raise ValidationError("You Have another Reservation")
+    routestat = self.env['busroutes'].search([('id', '=', pid)], limit=1).state
+    if(routestat != "InProgress"):
+      raise ValidationError("This Route is not available for reservation ")
 
 
-_sql_constraints = [('OneUserOnly', 'UNIQUE (name,parent_id)', 'User already exists'), ]
+    current = self.env['routeusers'].search_count([('parent_id', '=', pid)])
+    capacity = self.env['busroutes'].search([('id', '=', pid)], limit=1).capacity
+
+    if(current>=capacity):
+      raise ValidationError("Max Reached : " + str(current)  )
+    #raise ValidationError()
+    if(self.parent_id.parent_id.capacity>len(self.parent_id.child_ids)):
+      raise ValidationError("Max Reached")
+
+    return super(routeusers,self).create(values)
+
+  @api.multi
+  def write(self, values):
+    #raise ValidationError("hi")
+
+
+    # Add code here
+    return super(routeusers, self).write(values)
+
+
+  _sql_constraints = [('OneUserOnly', 'UNIQUE (name,parent_id)', 'User already exists'), ]
