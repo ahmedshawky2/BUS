@@ -23,7 +23,9 @@ class routeusers(models.Model):
   parent_left = fields.Integer('Parent Left', index=True)
   parent_right = fields.Integer('Parent Right', index=True)
 
-  bus_state = fields.Selection(string='bus_state', store=False, related='parent_id.state')
+  bus_state = fields.Selection(string='Route Status', store=False, related='parent_id.state')
+  bus_name =  fields.Char(string='Bus name', store=False, related='parent_id.parent_id.name')
+  Route_name = fields.Char(string='Route Name', store=False, related='parent_id.name')
 
   @api.model
   def create(self,values):
