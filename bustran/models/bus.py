@@ -16,3 +16,5 @@ class bus(models.Model):
     owner = fields.Many2one(comodel_name="res.users", domain="[]", index=True,string="Owner", required=False)
     capacity = fields.Integer(string="Capacity", required=False)
     child_ids  = fields.One2many(comodel_name="busroutes", inverse_name="parent_id", string="routes", required=False)
+
+    members_ids = fields.One2many(comodel_name="busmembers", inverse_name="parent_id", string="Members", required=False)

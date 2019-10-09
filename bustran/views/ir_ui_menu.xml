@@ -43,4 +43,15 @@
     <field name="sequence">12</field>
     <field name="web_icon" eval="False"/>
   </record>
+
+
+    <record id="busmembers_menu" model="ir.ui.menu" >
+    <field name="action" ref="busmembers_ACTION"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Bus Members</field>
+    <field name="parent_id" ref="bus_orders_menu_parent"/>
+    <field name="sequence">13</field>
+    <field name="web_icon" eval="False"/>
+  </record>
 </odoo>
