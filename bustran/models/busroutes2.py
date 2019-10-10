@@ -28,6 +28,7 @@ class busroutes(models.Model):
   parent_left = fields.Integer('Parent Left', index=True)
   parent_right = fields.Integer('Parent Right', index=True)
   child_ids = fields.One2many(comodel_name="routeusers", inverse_name="parent_id", string="Users", required=False)
+  bus_name = fields.Char(string='Bus name', store=False, related='parent_id.name')
 
 
   @api.one
